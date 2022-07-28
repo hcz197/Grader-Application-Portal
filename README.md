@@ -2,6 +2,14 @@
 
 * Overview
     - This is Team Jaws' implementation of a Grader Application Portal for tOSU students/instructors/admins. Our webapp is written in Ruby on Rails and HTML with the styling done with CSS.
+    
+* Team
+    - Jaws
+
+* Members and responsibilities
+    - Tushar & Diego - Student Fuctionalities
+    - Neha & Jaiy - Administrator Fuctionalities
+    - Steven & Casey - Instructor Functionalites
 	
 * Preview
     - https://pacific-atoll-60708.herokuapp.com/
@@ -38,12 +46,6 @@
                 - Admins - review applications and make hiring decisions - approve/disapprove applications and fire graders
         - Use the Navigation Bar to navigate to the courses View which shows all info from the courses table
         - Check out the courses page for the functionalities
-    
-
-* Members and responsibilities
-    - Tushar & Diego - Student Fuctionalities
-    - Neha & Jaiy - Administrator Fuctionalities
-    - Steven & Casey - Instructor Functionalites
 	
 * Outside sources
 	- Cited in indivial files with comments, most can be found at the top before the code
