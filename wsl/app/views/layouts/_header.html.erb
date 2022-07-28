@@ -1,0 +1,19 @@
+<% # A partial to display navigation headers to every link %>
+<% # https://www.w3schools.com/howto/howto_js_topnav.asp %>
+
+<div id="navbar">
+  <%= link_to "Home", root_path, class:"navlinks" %>
+
+  <% #show links to course list, sign-out, edit profiles if signed in %>
+  <% if user_signed_in? %>
+
+    <%= link_to "Course List", courses_path, class:"navlinks" %>
+    <%= link_to "Sign out", destroy_user_session_path, method: :delete, class:"navlinks" %>
+    <%= link_to "Edit Profile", edit_user_registration_path, class:"navlinks" %>
+
+  <% #show links to sign in and sign out if not signed n %>
+  <% else %>
+    <%= link_to "Sign in", new_user_session_path, class:"navlinks" %>
+    <%= link_to "Sign up", new_user_registration_path, class:"navlinks" %>
+  <% end %>
+</div>

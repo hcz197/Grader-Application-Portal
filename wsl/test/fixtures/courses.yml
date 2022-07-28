@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  coursenum: MyString
+  sectionnum: MyString
+  coursename: MyString
+  days: MyString
+  starttime: MyString
+  endtime: MyString
+  enrolled: 1
+  waitlist: 1
+
+two:
+  coursenum: MyString
+  sectionnum: MyString
+  coursename: MyString
+  days: MyString
+  starttime: MyString
+  endtime: MyString
+  enrolled: 1
+  waitlist: 1

@@ -1,0 +1,99 @@
+<% # Shows a list of applications, only viewable by instructors and admins %>
+
+<% # Selected course and instructor %>
+<% c = Course.find params[:course_id] %>
+<% instr = User.find c.user_id %>
+
+<p id="notice"><%= notice %></p>
+
+<h1 style="text-align:center">Applications</h1>
+
+<% # Course info %>
+<h3>Course</h3>
+<p>
+  <strong>Course Number:</strong>
+  CSE <%= c.coursenum %> - <%= c.coursename %>
+</p>
+
+<p>
+  <strong>Section Number:</strong>
+  <%= c.sectionnum %>
+</p>
+
+<p>
+  <strong>Meeting Info:</strong>
+  <%= c.days %> at <%= c.starttime %> to <%= c.endtime %>
+</p>
+
+<p>
+  <strong>Instructor:</strong>
+  <%= instr.fname %> <%= instr.lname %> 
+</p>
+
+<p>
+  <strong>Contact:</strong>
+  <%= instr.email %>
+</p>
+<br>
+
+<% # Application info %>
+<h3>Applications</h3>
+
+<% # Generate an array of applications for the selected course %>
+<% apps = [] %>
+<% @gradings.each do |grading| %>
+  <% if grading.course_id == c.id %>
+    <% apps.push grading %>
+  <% end %>
+<% end %>
+
+<% # Generate a table of applications OR a message stating that there are no applications yet %>
+<% if apps.length == 0 %>
+  <h3>There are no applications yet for this class!</h3>
+  
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>Student</th>
+        <th>Status</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% apps.each do |grading| %>
+
+        <% course = Course.find grading.course_id %>
+        <% instructor = User.find course.user_id %>
+        <% student = User.find grading.user_id %>
+
+        <tr>
+          <td><%= student.fname %> <%= student.lname %></td>
+
+          <% if grading.isGrading %>
+            <td>Hired</td>
+          <% else %>
+            <td>Pending</td>
+          <% end %>
+
+          <td><%= link_to 'Show', grading %></td>
+
+          <% if current_user.user_type == 1 %> 
+            <td><%= link_to 'Edit', edit_grading_path(grading, "course_id":course.id) %></td>
+
+          <% elsif current_user.user_type == 2 %>
+            <td><%= link_to 'Write Recommendation', edit_grading_path(grading, "course_id":course.id) %></td>
+          <% end %>
+
+        </tr>
+
+      <% end %>
+
+    </tbody>
+  </table>
+<% end %>
+
+<br>
+
+<%= link_to 'Back to courses', courses_path %>

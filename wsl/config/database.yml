@@ -1,0 +1,40 @@
+# Postgresql databse
+# Important Steps:
+# 1.  Install postgres on your machine from the official website (e.g. Ubuntu link: https://www.postgresql.org/download/linux/ubuntu/)
+# 2.  Open the postgres console using the command: sudo -u postgres psql
+# 3.  Set the password with the comman: \password
+# 4.  Change the password to 'password'
+# 5.  Make sure you have the postgreswl development libraries; use command: sudo apt-get install libpq-dev
+
+# Set up the database:
+# 1. bundle install
+# 2. rake db:create
+# 3. rake db:migrate
+#   3.1   SKIP intermediate steps if rake db:migrate worked already --> If you get an error along the lines of "relation 'users' does not exist", run the User migration FIRST
+#   3.2   run rake db:migrate:up VERSION=20210321161807
+#   3.3   run rake rb:migrate
+# 4. rake db:seed
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  user: postgres
+  password: password
+  host: localhost
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: db/development
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: db/test
+
+production:
+  <<: *default
+  database: db/production

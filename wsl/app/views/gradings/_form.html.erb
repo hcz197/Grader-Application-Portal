@@ -1,0 +1,91 @@
+<% # Form for submitting applications %>
+<% content_for :title do %>
+  TA Application 
+<% end %>
+
+<% # Begin the form for creating a new app %>
+<%= form_with(model: grading) do |form| %>
+  <% if grading.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(grading.errors.count, "error") %> prohibited this grading from being saved:</h2>
+
+      <ul>
+        <% grading.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<% # Scheduling info submission %>
+<% if current_user.user_type == 1 %>
+  <div>
+    <h3>Please indicate your available times in the fields below:</h3>
+
+    <div class="field">
+      <%= form.label :mon, "Monday" %>
+      <%= form.text_area(:mon, size: '30x2') %>
+    </div>
+
+    <div class="field">
+      <%= form.label :tue, "Tuesday" %>
+      <%= form.text_area(:tue, size: '30x2') %>
+    </div>
+
+    <div class="field">
+      <%= form.label :wed, "Wednesday" %>
+      <%= form.text_area(:wed, size: '30x2') %>
+    </div>
+
+    <div class="field">
+      <%= form.label :thu, "Thursday" %>
+      <%= form.text_area(:thu, size: '30x2') %>
+    </div>
+
+    <div class="field">
+      <%= form.label :fri, "Friday" %>
+      <%= form.text_area(:fri, size: '30x2') %>
+    </div>
+
+    <div class="field">
+      <%= form.label :other, "Other comments:" %>
+      <%= form.text_area(:other, size: '60x3') %>
+    </div>
+
+  </div>
+
+<% elsif current_user.user_type == 2 %>
+  <div class="field">
+    <%= form.label :recommendation, "Write your recommendation comments here:" %>
+    <%= form.text_area(:recommendation, size: '60x3') %>
+  </div>
+<% end %>
+
+<div class="field" style="display:none">
+  <%= form.text_field :course_id, :read_only => true, value:course.id %>
+
+  <% if current_user.user_type == 1 %>
+    <%= form.text_field :user_id, :read_only => true, value:current_user.id %>
+  <% elsif current_user.user_type == 2 %>
+    <%= form.text_field :user_id, :read_only => true, value:grading.user_id %>
+  <% end %>
+
+  <% if grading.isGrading == true %>
+    <%= form.text_field :isGrading, :read_only => true, value:true %>
+  <% else %>
+    <%= form.text_field :isGrading, :read_only => true, value:false %>
+  <% end %>
+</div>
+
+  <br>
+
+  <div class="actions">
+    <% if form_type == 'edit' %>
+      <%= form.button 'Save Changes', type:'submit' , name:"course_id", value:course.id %>
+    <% elsif form_type == 'rec' %>
+      <%= form.button 'Submit Recommendation', type:'submit' , name:"course_id", value:course.id %>
+    <% else %>
+      <%= form.button 'Apply', type:'submit' , name:"course_id", value:course.id %>
+    <% end %>
+  </div>
+<% end %>

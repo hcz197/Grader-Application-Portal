@@ -1,0 +1,29 @@
+<% # View for editing an existing application %>
+
+<% # Obtain associated course and instructor info %>
+<% c = Course.find params[:course_id] %>
+<% instr = User.find c.user_id %>
+
+<% if current_user.user_type == 1 %>
+	<% if @grading.isGrading == false %>
+		<h1>Edit Application</h1>
+	<% else %>
+		<h1>Edit Grader Availability</h1>
+	<% end %>
+<% elsif current_user.user_type == 2 %>
+	<h1>Write recommendation</h1>
+<% end %>
+
+<% if current_user.user_type == 1 %>
+	<%= render 'form', grading: @grading, course:c, instructor:instr, form_type:'edit' %><br>
+<% elsif current_user.user_type == 2 %>
+	<%= render 'form', grading: @grading, course:c, instructor:instr, form_type:'rec' %><br>
+<% end %>
+
+<% if current_user.user_type == 1 %>
+	<% if @grading.isGrading == false %>
+		<%= button_to 'Withdraw Application', @grading, method: :delete, data: { confirm: 'Are you sure?' } %><br>
+	<% end %>
+<% end %>
+
+<%= link_to 'Back to courses', courses_path %>

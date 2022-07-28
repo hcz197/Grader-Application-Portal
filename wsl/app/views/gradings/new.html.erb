@@ -1,0 +1,40 @@
+<% # Applications form %>
+
+<% c = Course.find params[:course_id] %>
+<% instr = User.find c.user_id %>
+
+<h1 style="text-align:center">New Application</h1>
+
+<% # Show information of the associated course %>
+<br>
+<h3>You are applying for the following course:</h3>
+<p>
+	<strong>Course Number:</strong>
+	CSE <%= c.coursenum %> - <%= c.coursename %>
+</p>
+
+<p>
+	<strong>Section Number:</strong>
+	<%= c.sectionnum %>
+</p>
+
+<p>
+	<strong>Meeting Info:</strong>
+	<%= c.days %> at <%= c.starttime %> to <%= c.endtime %>
+</p>
+
+<p>
+	<strong>Instructor:</strong>
+	<%= instr.fname %> <%= instr.lname %> 
+</p>
+
+<p>
+	<strong>Contact:</strong>
+	<%= instr.email %>
+</p>
+<br>
+
+<% # Include the form allowing for the creation of a new application %>
+<%= render 'form', grading: @grading, course:c, instructor:instr, form_type:'new' %>
+
+<%= link_to 'Back to courses', courses_path %>

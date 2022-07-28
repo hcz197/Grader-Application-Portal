@@ -1,0 +1,76 @@
+<% # Shows all graders %>
+
+<% # Obtain course, instructor, and grader data %>
+<% c = Course.find params[:course_id] %>
+<% instr = User.find c.user_id %>
+<% approved = Grading.where :course_id => c.id, :isGrading => true %>
+
+<p id="notice"><%= notice %></p>
+
+<h1 style="text-align:center">Graders</h1>
+
+<% # Display course info %>
+<br>
+<h3>Course:</h3>
+<p>
+  <strong>Course Number:</strong>
+  CSE <%= c.coursenum %> - <%= c.coursename %>
+</p>
+
+<p>
+  <strong>Section Number:</strong>
+  <%= c.sectionnum %>
+</p>
+
+<p>
+  <strong>Meeting Info:</strong>
+  <%= c.days %> at <%= c.starttime %> to <%= c.endtime %>
+</p>
+
+<p>
+  <strong>Instructor:</strong>
+  <%= instr.fname %> <%= instr.lname %> 
+</p>
+
+<p>
+  <strong>Contact:</strong>
+  <%= instr.email %>
+</p>
+<br>
+
+<% # Display a table of all graders of the course %>
+<h3>Graders:</h3>
+<strong>
+<% if approved.length == 0 %>
+  <p>Still looking for 2 graders!</p>
+<% elsif approved.length == 1 %>
+  <p>Still looking for 1 grader!</p>
+<% elsif approved.length >= 2 %>
+  <p>All grader positions have been filled!</p>
+<% end %>
+</strong>
+
+<% if approved != nil && approved.length > 0 %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Contact</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% approved.each do |appr| %>
+        <% grader = User.find appr.user_id %>
+        <tr>
+          <td><%= grader.fname %> <%= grader.lname %></td>
+          <td><%= grader.email %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<br>
+
+<%= link_to 'Back to courses', courses_path %>

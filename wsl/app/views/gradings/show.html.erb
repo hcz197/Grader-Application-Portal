@@ -1,0 +1,99 @@
+<% # View for showing a specific application %>
+
+<% # Gain information of the current app, the associated course, and associated student %>
+<% c = Course.find @grading.course_id %>
+<% t = User.find c.user_id %>
+<% s = User.find @grading.user_id %>
+
+<p id="notice"><%= notice %></p>
+
+<h1 style="text-align:center"><%= s.fname %> <%= s.lname %>'s Application</h1>
+
+<% # Show course info %>
+<h3>Course Information:</h3>
+<p>
+	<strong>Course:</strong>
+	CSE <%= c.coursenum %> - <%= c.coursename %>
+</p>
+
+<p>
+	<strong>Section Number:</strong>
+	<%= c.sectionnum %>
+</p>
+
+<p>
+	<strong>Meeting Info:</strong>
+	<% if c.days != '' %>
+		<%= c.days %> at <%= c.starttime %> to <%= c.endtime %>
+	<% else %>
+		TBD
+	<% end %>
+</p>
+
+<p>
+	<strong>Instructor:</strong>
+	<%= t.fname %> <%= t.lname %> 
+</p>
+<br>
+
+<% # Show applicant info %>
+<h3>Applicant Information:</h3>
+<p>
+	<strong>Name:</strong>
+	<%= s.fname %> <%= s.lname %>
+</p>
+
+<p>
+	<strong>Contact:</strong>
+	<%= s.email %>
+</p>
+
+<p>
+	<strong>Schedule Info:</strong><br>
+	Monday: <%= @grading.mon %><br>
+	Tuesday: <%= @grading.tue %><br>
+	Wednesday: <%= @grading.wed %><br>
+	Thursday: <%= @grading.thu %><br>
+	Friday: <%= @grading.fri %><br>
+</p>
+
+<p>
+	<strong>Other Info:</strong><br>
+	<%= @grading.other %>
+</p>
+
+<p>
+  <strong>Status</strong>
+  <% if @grading.isGrading %>
+  	Hired
+  <% else %>
+  	Pending
+  <% end %>
+</p>
+
+<% # If the user is an admin, allow them to Hire, Fire, or Reject (destroy) the application %>
+<% if @grading.recommendation != "" %>
+<p>
+  <strong>Recommendation:</strong><br>
+  <%= @grading.recommendation %>
+</p>
+<% end %>
+
+<br>
+<% if current_user.user_type == 3 %>
+	<% if @grading.isGrading == false %>
+		<%= button_to 'Approve', @grading, method: :toggle_approval, data: { confirm: 'Are you sure?' } %><br>
+		<%= button_to 'Reject', @grading, method: :delete, data: { confirm: 'Are you sure?' } %><br>
+	<% else %>
+		<%= button_to 'Fire', @grading, method: :toggle_approval, data: { confirm: 'Are you sure?' } %><br>
+	<% end %>
+<% end %>
+
+<% # If the user is a student, redirect back to the home page %>
+<% # Otherwise, redirect back to the course page %>
+<% if current_user.user_type == 1 %>
+	<%= link_to 'Back to applications', root_path %>
+<% else %>
+	<%= link_to 'Back to applications', gradings_path("course_id" => @grading.course_id) %>
+<% end %>
+	

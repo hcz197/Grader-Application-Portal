@@ -1,0 +1,59 @@
+<% # Form for submitting recommendation %>
+
+<% content_for :title do %>
+  Write Recommendation
+<% end %>
+
+<%= form_with(model: grading) do |form| %>
+  <% if grading.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(grading.errors.count, "error") %> prohibited this grading from being saved:</h2>
+
+      <ul>
+        <% grading.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <h3>Please leave your message below:</h3>
+
+    <div class="field">
+      <%= form.label :label, "Student Name" %>
+      <div class="select_box">
+        <% #form.text_area(:mon, size: '30x2') %>
+        <%= collection_select( :gradings, :user_id, Grading.all, :id, :name, {}, { :multiple => false}) %>
+      </div>
+    </div>
+
+
+    <div class="field">
+      <%= form.label :recommendation, "Recommendation Message:" %>
+      <%= form.text_area(:recommendation, size: '60x3') %>
+    </div>
+
+  </div>
+
+
+  <div class="field" style="display:none">
+    <%= form.text_field :course_id, :read_only => true, value:course.id %>
+    <%= form.text_field :user_id, :read_only => true, value:current_user.id %>
+    <% if grading.isGrading == true %>
+      <%= form.text_field :isGrading, :read_only => true, value:true %>
+    <% else %>
+      <%= form.text_field :isGrading, :read_only => true, value:false %>
+    <% end %>
+  </div>
+
+  <br>
+
+  <div class="actions">
+    <% if form_type == 'edit' %>
+      <%= form.button 'Save Changes', type:'submit' , name:"course_id", value:course.id %>
+    <% else %>
+      <%= form.button 'Apply', type:'submit' , name:"course_id", value:course.id %>
+    <% end %>
+  </div>
+<% end %>
