@@ -3,8 +3,8 @@
 * Overview
     - This is Team Jaws' implementation of a Grader Application Portal for tOSU students/instructors/admins. Our webapp is written in Ruby on Rails and HTML with the styling done with CSS.
 	
-* Added Functionality
-	- N/A
+* Preview
+    - https://pacific-atoll-60708.herokuapp.com/
 
 * Configuration
     1.  Gemfile
