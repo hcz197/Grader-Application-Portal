@@ -49,11 +49,3 @@
 	
 * Outside sources
 	- Cited in indivial files with comments, most can be found at the top before the code
-
-* Presentation
-    - ```https://docs.google.com/presentation/d/1Z_GQyQoRPW2zmhHiu1yWdU9SkR8GjfBBHxvPkrPCi-0/edit#slide=id.p```
-		
-* Other thoughts
-	- Rails is easy to use, if you already know it, or know good sources of learning it
-    - Before spending time to write your own immature implentation of a certain function, check if there already exists a mature and well-written gem that handles this. It will save time and tears.
-    - Many more functions we can implement, but we didn't have much time
