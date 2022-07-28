@@ -41,7 +41,6 @@
     
 
 * Members and responsibilities
-    - Project Leads - Steven & Neha
     - Tushar & Diego - Student Fuctionalities
     - Neha & Jaiy - Administrator Fuctionalities
     - Steven & Casey - Instructor Functionalites
