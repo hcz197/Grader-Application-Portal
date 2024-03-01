@@ -10,9 +10,6 @@
     - Tushar & Diego - Student Fuctionalities
     - Neha & Jaiy - Administrator Fuctionalities
     - Steven & Casey - Instructor Functionalites
-	
-* Preview
-    - https://pacific-atoll-60708.herokuapp.com/
 
 * Configuration
     1.  Gemfile
